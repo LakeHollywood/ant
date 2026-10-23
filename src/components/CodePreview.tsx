@@ -6,8 +6,7 @@ interface CodePreviewProps {
   antigravity: boolean;
 }
 
-/** Generate the Python snippet mirroring the current agent configuration. */
-export function buildPythonConfig(agents: Agent[], antigravity: boolean): string {
+function buildPythonConfig(agents: Agent[], antigravity: boolean): string {
   const agentLines = agents
     .map(
       (a) => `    Agent(
@@ -27,7 +26,7 @@ export function buildPythonConfig(agents: Agent[], antigravity: boolean): string
   return `from google.antigravity import Agent, LocalAgentConfig
 
 # Initialize antigravity mode
-antigravity = ${antigravity ? 'True' : 'False'}
+antigravity = ${antigravity}
 
 # Configure agents
 agents = [

@@ -1,4 +1,4 @@
-import { useEffect, useId, useState } from 'react';
+import { useEffect, useState } from 'react';
 import type { Agent, AgentConfig } from '../types';
 import { AVAILABLE_MODELS, AVAILABLE_TOOLS } from '../data/agents';
 
@@ -13,7 +13,6 @@ const labelClass = 'text-gray-300 text-sm font-medium mb-1 block';
 
 export default function ConfigPanel({ agent, onUpdate, onClose }: ConfigPanelProps) {
   const [config, setConfig] = useState<AgentConfig>(agent.config);
-  const fieldIds = useId();
 
   // Reset the draft whenever a different agent is opened.
   useEffect(() => {
@@ -62,9 +61,8 @@ export default function ConfigPanel({ agent, onUpdate, onClose }: ConfigPanelPro
 
         <div className="space-y-4">
           <div>
-            <label className={labelClass} htmlFor={`${fieldIds}-name`}>Agent Name</label>
+            <label className={labelClass}>Agent Name</label>
             <input
-              id={`${fieldIds}-name`}
               type="text"
               value={config.name}
               onChange={(e) => updateField('name', e.target.value)}
@@ -73,9 +71,8 @@ export default function ConfigPanel({ agent, onUpdate, onClose }: ConfigPanelPro
           </div>
 
           <div>
-            <label className={labelClass} htmlFor={`${fieldIds}-model`}>Model</label>
+            <label className={labelClass}>Model</label>
             <select
-              id={`${fieldIds}-model`}
               value={config.model}
               onChange={(e) => updateField('model', e.target.value)}
               className={inputClass}
@@ -90,11 +87,10 @@ export default function ConfigPanel({ agent, onUpdate, onClose }: ConfigPanelPro
 
           <div className="grid grid-cols-2 gap-4">
             <div>
-              <label className={labelClass} htmlFor={`${fieldIds}-temp`}>
+              <label className={labelClass}>
                 Temperature: {config.temperature}
               </label>
               <input
-                id={`${fieldIds}-temp`}
                 type="range"
                 min="0"
                 max="1"
@@ -105,9 +101,8 @@ export default function ConfigPanel({ agent, onUpdate, onClose }: ConfigPanelPro
               />
             </div>
             <div>
-              <label className={labelClass} htmlFor={`${fieldIds}-tokens`}>Max Tokens</label>
+              <label className={labelClass}>Max Tokens</label>
               <input
-                id={`${fieldIds}-tokens`}
                 type="number"
                 value={config.maxTokens}
                 onChange={(e) => updateField('maxTokens', parseInt(e.target.value) || 0)}
@@ -117,9 +112,8 @@ export default function ConfigPanel({ agent, onUpdate, onClose }: ConfigPanelPro
           </div>
 
           <div>
-            <label className={labelClass} htmlFor={`${fieldIds}-prompt`}>System Prompt</label>
+            <label className={labelClass}>System Prompt</label>
             <textarea
-              id={`${fieldIds}-prompt`}
               value={config.systemPrompt}
               onChange={(e) => updateField('systemPrompt', e.target.value)}
               rows={3}
